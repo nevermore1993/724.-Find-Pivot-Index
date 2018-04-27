@@ -1,0 +1,70 @@
+class Solution {
+    public int myAtoi(String str) {
+        char posOrneg = '+';
+        int result = 0;
+        boolean valid;
+        boolean overflow = false;
+        List<Character> l = new ArrayList<> ();
+        if (str == null || str.length() == 0)
+            return 0;
+        else
+        	valid = extractNum(l, str);
+        if (valid == false)
+        	return 0;
+        for (int i = 0; i < l.size(); i++) {
+        	//System.out.println(l.get(i));
+        	//System.out.println(Integer.parseInt(String.valueOf(l.get(i))));
+        	int newResult = 0;
+        	if(!Character.isDigit(l.get(i))) {
+        		posOrneg = l.get(i);
+        	} else {
+        		newResult = result * 10 + Integer.parseInt(String.valueOf(l.get(i)));
+        		if((newResult - Integer.parseInt(String.valueOf(l.get(i)))) / 10 != result)
+        			overflow = true;
+        		result = newResult;
+        	}
+        }
+        //System.out.println(result);
+        if (posOrneg == '-')
+        	result = 0 - result;
+        if (overflow && posOrneg == '-' || result < Integer.MIN_VALUE)
+        	return Integer.MIN_VALUE;
+        else if (overflow && posOrneg == '+' || result > Integer.MAX_VALUE)
+        	return Integer.MAX_VALUE;
+        else if (posOrneg == '+' && result == Integer.MIN_VALUE)
+        	return Integer.MAX_VALUE;
+        else if (posOrneg == '-' && result == Integer.MAX_VALUE)
+        	return Integer.MIN_VALUE;
+        else
+        	return result;    
+    }
+	
+	public static boolean extractNum(List<Character> l, String s) {
+		int j = 0;
+		for(int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) != ' ') {
+				j = i;
+				break;
+			}
+		}
+		
+		if (s.charAt(j) == '-' || s.charAt(j) == '+') {
+			l.add(s.charAt(j));
+			j++;
+		} else if (!Character.isDigit(s.charAt(j)))
+			return false;
+		
+		if (s.length() > j && Character.isDigit(s.charAt(j))) {
+			for (int i = j; i < s.length(); i++) {
+				if (Character.isDigit(s.charAt(i)))
+					l.add(s.charAt(i));
+				else
+					break;
+			}
+		} else {
+			return false;
+		}
+		
+		return true;
+	}
+}
