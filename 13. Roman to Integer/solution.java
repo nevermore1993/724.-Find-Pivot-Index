@@ -6,13 +6,14 @@ class Solution {
         int result = 0;
         for(int i = 0; i < length; i++) {
             c = s.charAt(i);
-            if(c == 'I' || C == 'X' || C == 'C') {
+            if(c == 'I' || c == 'X' || c == 'C') {
                 spe = speCheck(s, i);
             }
             
             if(spe != 0) {
                 result = result + spe;
                 i++;
+                spe = 0;
             } else {
                 result = result + norNum(s, i);
             }
@@ -43,6 +44,8 @@ class Solution {
                     return 900;
                 else 
                     return 0;
+            default:
+                return 0;
         }
     }
     public int norNum(String s, int i) {
@@ -61,6 +64,8 @@ class Solution {
                 return 500;
             case 'M':
                 return 1000;
+            default:
+                return 0;
         }
     }
 }
