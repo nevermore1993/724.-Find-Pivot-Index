@@ -32,7 +32,7 @@ class Solution {
 }
 
 //when char == ( { or [, push ) } ] into stack. when char != ( { [, pop stack, if != ) } ], invaild. because the first { ( [ must close a ( { [
-next to it.
+//next to it.
 //因为} 】 ） 出现时必定关闭的是最后出现的一个 （ 【 {， 所以将已经出现的 （ { 【对应的 ） } 】压入栈，每次pop比较，如果符合，valid，否则，invalid；
 
 class Solution {
@@ -50,4 +50,33 @@ class Solution {
 	  }
 	  return stack.isEmpty();
     }
+}
+
+
+//similar solution, but faster   switch/case is faster than if/else. switch is a map,  if/else needs  to traverse every case.
+public class Solution {
+	public boolean isValid(String s) {
+		char[] stack = new char[s.length()];
+		int head = 0;
+		for(char c : s.toCharArray()) {
+			switch(c) {
+				case '{':
+				case '[':
+				case '(':
+					stack[head++] = c;
+					break;
+				case '}':
+					if(head == 0 || stack[--head] != '{') return false;
+					break;
+				case ')':
+					if(head == 0 || stack[--head] != '(') return false;
+					break;
+				case ']':
+					if(head == 0 || stack[--head] != '[') return false;
+					break;
+			}
+		}
+		return head == 0;
+
+	}
 }
