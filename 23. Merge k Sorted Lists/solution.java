@@ -1,3 +1,9 @@
+in recursion solution, the first list got merged for k-1 times, second list got merged for k-2 times ..... 
+    total merge time  (k-1)k/2
+in divide-conquer solution, each list got merged for only log(k) (the depth of Complete Binary Tree with k leaves) times. 
+    total merge time  log(k)k
+
+
 // just recursivly merge every list just beats 14% of java submissions
 /**
  * Definition for singly-linked list.
