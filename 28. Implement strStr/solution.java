@@ -33,3 +33,20 @@ class Solution {
         }
     }
 }
+
+// beats 91.17% by using substring()
+class Solution {
+    public int strStr(String haystack, String needle) {
+        int sizeN = needle.length();
+        
+        if (needle.isEmpty()) 
+            return 0;
+        
+            for (int i = 0; i < haystack.length() - sizeN + 1; i++) {
+                String s = haystack.substring(i, i + sizeN);
+                if (s.equals(needle))
+                    return i;
+            }
+            return -1;
+    }
+}
