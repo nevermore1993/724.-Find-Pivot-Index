@@ -1,4 +1,4 @@
-// recursion method, form string of n from string of n - 1
+// recursion method, form string of n from string of n - 1. dont use recursion to optimize time complexity
 class Solution {
     public String countAndSay(int n) {
         if (n == 1)
