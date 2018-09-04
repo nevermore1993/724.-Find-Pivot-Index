@@ -76,7 +76,8 @@ class Solution {
 }
 
 
-// same idea, but more subtle, using for loop for each traverse direction
+// layer by layer .same idea, but more subtle, using for loop for each traverse direction, use four flag to stand for top, left, roght, bot
+// index of each layer
 class Solution {
     public List < Integer > spiralOrder(int[][] matrix) {
         List ans = new ArrayList();
