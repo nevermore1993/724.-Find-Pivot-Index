@@ -11,7 +11,8 @@ class Solution {
 }
 
 // my 125ms solution, traverse backward, check if nums[i] can be reached by check if the previous non negetive element is greater
-// than their steps. if can be reached, return canJump(subArray), if not, return false
+// than their steps. if can be reached, return canJump(subArray), if not, return false  I think this ides belong to 
+// dynamic programming 
 class Solution {
     public boolean canJump(int[] nums) {
         if (nums.length <= 1)
