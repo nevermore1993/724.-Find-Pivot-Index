@@ -53,3 +53,30 @@ class Solution {
         return false;
     }
 }
+
+
+// similar idea, set visited element to "/0", which is not matched to any char
+class Solution {
+    public boolean exist(char[][] board, String word) {
+        for(int i =0; i < board.length; i++)
+            for(int j =0; j<board[0].length; j ++){
+                if(board[i][j]==word.charAt(0)) {
+                    boolean res = helper(board,word,0,board.length, board[0].length,i,j);
+                    if(res) return true;
+                }
+            }
+        return false;
+    }
+    public boolean helper(char[][] board, String word, int i, int r, int c, int r1, int c1){
+        if(i==word.length()) return true; 
+        if(r1<0 || r1>=r || c1>=c || c1<0 || board[r1][c1]!=word.charAt(i)) return false;
+        char charc = board[r1][c1];
+        board[r1][c1]='\0';
+        boolean res = helper(board,word,i+1,r,c,r1+1,c1)||
+                        helper(board,word,i+1,r,c,r1-1,c1)||
+                        helper(board,word,i+1,r,c,r1,c1+1)||
+                        helper(board,word,i+1,r,c,r1,c1-1);
+        board[r1][c1]=charc;
+        return res;
+    }
+}
