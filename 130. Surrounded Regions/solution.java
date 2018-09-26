@@ -1,5 +1,7 @@
 // start with all 'O' on the border, visit all connected 'O', keep a flag matrix to store index of all visited element.
 // flip all 'O' that is not visited
+// optimize solution, use original matrix to store visited 'O', just set it to a different char, say '1', then flip all 'O' to 'X', then 
+// flip all '1' back to 'O'
 class Solution {
     public void solve(char[][] board) {
         if (board.length <= 1 || board[0].length == 1)
