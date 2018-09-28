@@ -72,3 +72,33 @@ public class Solution {
         return f[s.length()];
     }
 }
+
+
+// similar with my solution, beats 100%, optimize with a flag array, visited means true
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        int[] visited = new int[s.length() + 1];
+        return wordBreak(s, wordDict, visited, 0);
+    }
+    
+    boolean wordBreak(String s, List<String> wordDict, int[] visited, int offset) {
+        visited[offset] = 1;
+        if (offset == s.length()) {
+            return true;
+        }
+        
+        for (String word : wordDict) {
+            if (s.startsWith(word, offset)) {
+                if (visited[offset + word.length()] == 0) {
+                    visited[offset + word.length()] = 1;
+                    if (wordBreak(s, wordDict, visited, offset + word.length())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    } 
+     
+}
