@@ -87,3 +87,79 @@ public class Solution {
         return result;
     }
 }
+
+// best accepted java solution, however it can pass the case like [[1,1],[1,2],[2,2],[2,3],[3,3]].
+// it fails to consider many conditions, it only forms line from two adjacent element, it should consider all lines
+// forms from each two elements.
+class Solution {
+    public int maxPoints(Point[] points) {
+        if (points == null) {
+            return 0;
+        }
+        if (points.length <= 2) {
+            return points.length;
+        }
+        int maxNum = 0;
+        for (int i = 0; i < points.length - 1; i++) {
+            int repeat = 0;
+            Point p1 = points[i];
+            Point p2 = points[i+1];
+            long dx = p1.x - p2.x;
+            long dy = p1.y - p2.y;
+            if (dx == 0 && dy == 0) {
+                for (int j = 0; j < points.length; j++) {
+                    if (points[j].x == p1.x && points[j].y == p2.y) {
+                        repeat++;
+                    }
+                }
+            }
+            else {
+                for (int j = 0; j < points.length; j++) {
+                    if (dx * (points[j].y - p1.y) == dy * (points[j].x - p1.x)) {
+                        repeat++;
+                    }
+                }
+            }
+            maxNum = Math.max(maxNum, repeat);
+        }
+        return maxNum;
+    }
+}
+
+// below is the modified version, one loop is added to include all lines formed with each two points
+class Solution {
+    public int maxPoints(Point[] points) {
+        if (points == null) {
+            return 0;
+        }
+        if (points.length <= 2) {
+            return points.length;
+        }
+        int maxNum = 0;
+        for (int i = 0; i < points.length; i++) {
+            Point p1 = points[i];
+            for (int k = 0; k < points.length; k++) {
+                int repeat = 0;
+                Point p2 = points[k];
+                long dx = p1.x - p2.x;
+                long dy = p1.y - p2.y;
+                if (dx == 0 && dy == 0) {
+                    for (int j = 0; j < points.length; j++) {
+                        if (points[j].x == p1.x && points[j].y == p2.y) {
+                            repeat++;
+                        }
+                    }
+                }
+                else {
+                    for (int j = 0; j < points.length; j++) {
+                        if (dx * (points[j].y - p1.y) == dy * (points[j].x - p1.x)) {
+                            repeat++;
+                        }
+                    }
+                }
+                maxNum = Math.max(maxNum, repeat);
+            }
+        }
+        return maxNum;
+    }
+}
