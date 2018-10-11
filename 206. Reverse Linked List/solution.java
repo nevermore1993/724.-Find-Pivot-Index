@@ -22,3 +22,5 @@ class Solution {
         return cur;
     }
 }
+
+// 也可以用stack，先顺序入栈，再出栈，则得到逆序链表
