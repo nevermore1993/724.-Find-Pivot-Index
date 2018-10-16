@@ -1,4 +1,5 @@
 // dp解法， dp[n] = Min{ dp[n - i*i] + 1 },  n - i*i >=0 && i >= 1
+// 这一类求最大最小值，并且结果跟子问题的结果有关的很多都可以用动态规划来求解
 class Solution {
     public int numSquares(int n) {
 	    int[] dp = new int[n + 1];
