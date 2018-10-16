@@ -72,3 +72,39 @@ class Solution {
       return sliding_max;
   }
 }
+
+
+// 利用deque（双端队列）来按顺序存储每个window中的从大到小的元素。移动后的操作：先将队头超出window范围的元素都去掉，队头的元素是最大的。然后
+// 从队尾开始，将所有小于新元素的元素都去掉，将新元素插在队尾。然后如果队头的元素已经是第一个window的尾了，就将这个元素加入结果中。
+// 我实现时的难点就是如果移动时被去掉的元素是原本最大的元素，则需要重新比较新window中的所有元素大小。利用deque后，会将之前window的元素
+// 从大到小保存下来，而且deque中总是存在至少一个元素（k > 1时）。存在一个元素的情况是新加入的元素是最大的，会把deque之前所有的元素都挤掉，但是这种
+// 情况时，下一次移动并不会因为这个元素越界而将这个最大值去掉，因为是刚加入的新元素，所以不存在问题。
+// 利用双端队列的原因是，移动时，要将越界的最大值剔除（在队头），而要将新元素插入队尾，所以要一个能够对头尾操作的数据结构。
+// stack只能对一端进行操作，所以不符合要求
+
+public int[] maxSlidingWindow(int[] a, int k) {		
+	if (a == null || k <= 0) {
+		return new int[0];
+	}
+	int n = a.length;
+	int[] r = new int[n-k+1];
+    int ri = 0;
+	// store index
+	Deque<Integer> q = new ArrayDeque<>();
+	for (int i = 0; i < a.length; i++) {
+		// remove numbers out of range k
+		while (!q.isEmpty() && q.peek() < i - k + 1) {
+			q.poll();
+		}
+		// remove smaller numbers in k range as they are useless
+		while (!q.isEmpty() && a[q.peekLast()] < a[i]) {
+			q.pollLast();
+		}
+		// q contains index... r contains content
+		q.offer(i);
+		if (i >= k - 1) {
+			r[ri++] = a[q.peek()];
+		}
+	}
+	return r;
+}
