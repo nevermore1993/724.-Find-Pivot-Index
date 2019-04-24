@@ -51,3 +51,26 @@ class Solution {
         fillRight(temp, max);
     }
 }
+
+
+//一个位置能寸多少水是由左右两边的最高的bar中短的决定的
+class Solution {
+    public int trap(int[] height) {
+        if(height.length == 0) return 0;
+        int[] left = new int[height.length];
+        int[] right = new int[height.length];
+        left[0] = height[0];
+        for(int i = 1; i < height.length; i++){
+            left[i] = Math.max(left[i - 1], height[i]);
+        }
+        right[height.length - 1] = height[height.length - 1];
+        for(int i = height.length - 2; i >= 0; i--){
+            right[i] = Math.max(right[i + 1], height[i]);
+        }
+        int ans = 0;
+        for(int i = 0; i < height.length; i++){
+            ans += Math.min(right[i], left[i]) - height[i];
+        }
+        return ans;
+    }
+}
