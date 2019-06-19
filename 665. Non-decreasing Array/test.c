@@ -1,3 +1,5 @@
+// 如果只有三个点，肯定有一种方法，只调整一个点，就形成一条直线，但是如果四个点，是有两个拐点的折线，且最后一个点比第二个点
+// 要小，那么就不能只调整一个点了。
 bool checkPossibility(int* nums, int numsSize) {
     int i = 0;
     int count = 0;
