@@ -36,3 +36,32 @@ class Solution {
 		return j;
 	}
 }
+
+
+// 记录当前string中的左右括号的数量，如果左大于右，则可以加一个右括号，如果左括号小于n个，则一定可以加一个左括号。
+// 每次添加操作后递归，递归结束后要进行还原操作，使的当前的string模板可以有不同的后续组合。
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> res = new ArrayList<>();
+        helper(res, new String(), 0, 0, n);
+        return res;
+    }
+    public void helper(List<String> res, String temp, int left, int right, int n) {
+        if (left + right == n * 2) {
+            res.add(temp);
+            return;
+        }
+
+        if (left > right) {
+            temp += ')';
+            helper(res, temp, left, right+1, n);
+            temp = temp.substring(0, temp.length()-1);
+        }
+        if (left < n) {
+            temp += '(';
+            helper(res, temp, left+1, right, n);
+            temp = temp.substring(0, temp.length()-1);
+        }
+        
+    }
+}
