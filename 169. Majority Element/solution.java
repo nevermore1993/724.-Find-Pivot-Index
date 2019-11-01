@@ -23,3 +23,21 @@ class Solution {
         return temp;
     }
 }
+
+
+// 也可以使用递归调用，maj返回剩余数组中的主要元素。当我们的count==0时，说明已经遍历过的数组中没有元素出现次数超过一半，去掉这部分数组
+// 对结果没有影响。
+class Solution {
+    public int majorityElement(int[] nums) {
+        return maj(nums, 0, nums[0]);
+    }
+    private int maj(int[] nums, int start, int cur) {
+        int count = 1;
+        for (int i = start; i < nums.length; i++) {
+            if (cur == nums[i]) count++;
+            else count--;
+            if (count == 0) return maj(nums, i+1,nums[i]);
+        }
+        return cur;
+    }
+}
