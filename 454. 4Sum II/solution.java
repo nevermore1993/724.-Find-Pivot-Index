@@ -29,3 +29,30 @@ class Solution {
         return res;
     }
 }
+
+
+
+
+
+// 同样的方法，不过省去了统计A,B,C,D的元素个数的步骤。
+class Solution {
+    public int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
+        Map<Integer,Integer> mapAB = new HashMap<>(500_000);
+        int count = 0;
+        for(int a: A){
+            for(int b : B){
+                int sum = a+b;
+                mapAB.put(sum, mapAB.getOrDefault(sum, 0) + 1);
+            }
+        }
+        
+        for(int c : C){
+            for(int d : D){
+                count += mapAB.getOrDefault(-c-d, 0);
+            }
+        }
+        
+        return count;
+        
+    }
+}
