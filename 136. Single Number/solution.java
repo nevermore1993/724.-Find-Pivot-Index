@@ -24,20 +24,17 @@ class Solution {
 // beats 36% of all java submission
 class Solution {
     public int singleNumber(int[] nums) {
+        if (nums.length == 1) return nums[0];
         
-        if (nums.length == 1)
-            return nums[0];
         Arrays.sort(nums);
-        int temp = 0, result = 0;
-        for (int i = 1; i < nums.length; i++) {
-            if (nums[i] != nums[i - 1] && temp == 0)
-                return nums[i - 1];
-            else if (nums[i] != nums[i - 1] && temp == 1)
-                temp = 0;
+        int i = 0;
+        while (i < nums.length - 2) {
+            if (nums[i] == nums[i+1])
+                i += 2;
             else
-                temp = 1;
+                return nums[i];
         }
-        return nums[nums.length - 1]; 
+        return nums[nums.length - 1];
     }
 }
 
