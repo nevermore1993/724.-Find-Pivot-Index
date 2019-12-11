@@ -53,3 +53,28 @@ class Solution {
         return dummy.next;
     }
 }
+
+// 递归调用
+class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
+        } else if (l2 == null) {
+            return l1;
+        }
+        
+        ListNode pointer = null;
+        
+        if (l1.val <= l2.val) {
+            pointer = l1;
+            l1 = l1.next;
+        } else {
+            pointer = l2;
+            l2 = l2.next;
+        }
+        
+        pointer.next = mergeTwoLists(l1, l2);
+        
+        return pointer;
+    }
+}
